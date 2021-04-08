@@ -31,7 +31,7 @@ export function DisplayContactPage(req:Request, res:Response, next:NextFunction)
 }
 export function DisplayLoginPage(req:Request, res:Response, next:NextFunction)
 {
-    if(!req.user)
+    if(req.user)
     {
         res.render('index', { 
             title: 'Login', 
@@ -46,13 +46,7 @@ export function DisplayRegisterPage(req:Request, res:Response, next:NextFunction
 {
     if(!req.user)
     {
-        res.render('index',
-         { 
-             title: 'Register', 
-             page: 'register',
-             messages: req.flash('registerMessage'), 
-             displayName: ''    
-        });
+        res.render('index', { title: 'Register', page: 'register', displayName: ''    });
     }
     return res.redirect('/contact-list');
 }
