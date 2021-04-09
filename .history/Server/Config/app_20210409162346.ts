@@ -6,20 +6,17 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 
-//Modules for authentication
+// modules for authentication
 import session from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 
-
-//Authentication objects
-let localStrategy = passportLocal.Strategy; //Alias
+// authentication objects
+let localStrategy = passportLocal.Strategy; // alias
 import User from '../Models/user';
 
-
-// module for authentication messaging and error management 
+// module for auth messaging and error management
 import flash from 'connect-flash';
-
 
 // App configuration
 import indexRouter from '../Routes/index';
@@ -29,13 +26,12 @@ export default app;
 
 // DB configuration
 import * as DBConfig from './db';
-import { support } from 'jquery';
-mongoose.connect(DBConfig.Path, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(DBConfig.RemoteURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log(`Connected to MongoDB at: ${DBConfig.Path}`);
+  console.log(`Connected to MongoDB at: ${DBConfig.Host}`);
 });
 
 // view engine setup

@@ -35,6 +35,7 @@ let localStrategy = passport_local_1.default.Strategy;
 const user_1 = __importDefault(require("../Models/user"));
 const connect_flash_1 = __importDefault(require("connect-flash"));
 const index_1 = __importDefault(require("../Routes/index"));
+const contact_list_1 = __importDefault(require("../Routes/contact-list"));
 const app = express_1.default();
 exports.default = app;
 const DBConfig = __importStar(require("./db"));
@@ -51,7 +52,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(cookie_parser_1.default());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../../Client/')));
-app.use(express_1.default.static(path_1.default.join(__dirname, '../../node_modules')));
+app.use(express_1.default.static(path_1.default.join(__dirname, '../../node_modules/')));
 app.use(express_session_1.default({
     secret: DBConfig.Secret,
     saveUninitialized: false,
@@ -64,6 +65,7 @@ passport_1.default.use(user_1.default.createStrategy());
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
 app.use('/', index_1.default);
+app.use('/contact-list', contact_list_1.default);
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));
 });
